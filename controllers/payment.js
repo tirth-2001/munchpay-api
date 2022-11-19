@@ -42,6 +42,13 @@ router.get('/get-payment-methods', (_req, res) => {
 // POST /makePayment
 router.post('/make-payment', (req, res) => {
 	const { amount, mode } = req.body
+
+	if (!amount) {
+		return res.status(400).json({
+			message: 'Amount is required',
+		})
+	}
+
 	const convertedAmount = convertINRToUSD(amount)
 	res.json({
 		message: 'Payment Successfull ✅',
